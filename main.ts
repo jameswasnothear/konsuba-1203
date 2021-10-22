@@ -152,7 +152,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             story.spriteSayText(darkness, "leave")
         }
         if (story.checkLastAnswer("take all items")) {
+            let text_list_common: number[] = []
+            let treasure: Image[] = []
             pause(2000)
+            reward_common = randint(0, 10)
+            music.jumpUp.play()
+            game.showLongText("you obtained...", DialogLayout.Bottom)
+            darkness.setImage(treasure[reward_common])
+            game.showLongText(text_list_common[reward_common], DialogLayout.Bottom)
             common_item_generation += randint(1, 10)
             common_weapon_generation()
             tiles.setTileAt(tiles.getTileLocation(55, 14), sprites.dungeon.chestOpen)
@@ -413,6 +420,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+let reward_common = 0
 let wave_attack: Sprite = null
 let exploshion_1: Sprite = null
 let weapon_menu = 0
@@ -453,6 +461,7 @@ tiles.createSpritesOnTiles(sprites.builtin.forestTiles0, SpriteKind.enviroment_1
 tiles.coverAllTiles(assets.tile`transparency16`, sprites.castle.tileGrass1)
 tiles.coverAllTiles(sprites.builtin.forestTiles4, sprites.castle.tileGrass3)
 tiles.createSpritesOnTiles(assets.tile`myTile0`, SpriteKind.river)
+tiles.replaceAllTiles(tiles.util.door4, sprites.dungeon.collectibleInsignia)
 game.onUpdateInterval(2000, function () {
     statusbar.value += 2
 })
